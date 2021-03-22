@@ -1,10 +1,10 @@
 ﻿#include <iostream>
 
-#define quantity 10                     //Количество карт в колоде 
+#define quantityOld 10                     //Количество карт в колоде 
 
-int randomRank[quantity];               //Массив для случайной генерации ранга карты
-char randomSuit[quantity];              //Массив для генерации случайной масти карты
-char letters[4]{'h','d','c','s'};       //Возможные масти карт, от слов Heart, Diamond, Club, Spade
+int randomRankOld[quantityOld];               //Массив для случайной генерации ранга карты
+char randomSuitOld[quantityOld];              //Массив для генерации случайной масти карты
+char lettersOld[4]{'h','d','c','s'};       //Возможные масти карт, от слов Heart, Diamond, Club, Spade
 
 
 struct Card {           //Структура для задачи карты
@@ -38,41 +38,40 @@ public:
     void setSuit(char suit) { Card::suit = suit; };         // сеттер масти
 };
 
-class Deck {                            //класс колоды
+class DeckOld {                            //класс колоды
 private:
-    Card list[quantity];                //массив колоды 
-    int  lenght;
+    Card list[quantityOld];                //массив колоды 
 public:
-    Deck() {                            // конструктор по умолчанию создает упорядоченный набор карт: переодичность ранга - 13, переодичность масти - 4
-        for (int filler = 0; filler < quantity; ++filler) {
-            Card basekard((filler % 13) + 1, letters[filler % 4]);
+    DeckOld() {                            // конструктор по умолчанию создает упорядоченный набор карт: переодичность ранга - 13, переодичность масти - 4
+        for (int filler = 0; filler < quantityOld; ++filler) {
+            Card basekard((filler % 13) + 1, lettersOld[filler % 4]);
             list[filler] = basekard;
         
         };
     };
-    Deck(int number)                    // конструктор, создающий колоду из number карт, определяемых случайно
+    DeckOld(int number)                    // конструктор, создающий колоду из number карт, определяемых случайно
     {
-        if (number <= quantity)
+        if (number <= quantityOld)
         {
-            Deck::getRandom();
+            DeckOld::getRandom();
             for (int counter = 0; counter < number; counter++)
             {
-                Card karta(randomRank[counter] + 1, randomSuit[counter]);
+                Card karta(randomRankOld[counter] + 1, randomSuitOld[counter]);
                 list[counter] = karta;
             };
         }
         else std::cout << "Exceeding the card limit\n";
        
     };
-    Deck(Card card) {                   // конструктор, создающий колоду из одной указанной карты
+    DeckOld(Card card) {                   // конструктор, создающий колоду из одной указанной карты
         list[0] = card;    
     };
-    Deck& operator++()                  // перегрузка оператора ++ для добавления случайной карты в колоду
+    DeckOld& operator++()                  // перегрузка оператора ++ для добавления случайной карты в колоду
     {
         int lastPosition = 0;
-        Card additionCard((rand() % 12)+1, letters[rand() % 4]);
-        while (list[lastPosition].getRank() != NULL && lastPosition< quantity) { lastPosition++; };
-        if (lastPosition < quantity)
+        Card additionCard((rand() % 12)+1, lettersOld[rand() % 4]);
+        while (list[lastPosition].getRank() != NULL && lastPosition< quantityOld) { lastPosition++; };
+        if (lastPosition < quantityOld)
             list[lastPosition] = additionCard;
         else
             std::cout << "The deck contains the maximum number of cards\n"; // ограничение на превышение размера колоды 
@@ -88,11 +87,11 @@ public:
         int lettersPosition = 0;
         int lastnonzero = 0;
         int counter = 0;
-        while (list[lastnonzero].getRank() != NULL && lastnonzero < quantity) { lastnonzero++; };
+        while (list[lastnonzero].getRank() != NULL && lastnonzero < quantityOld) { lastnonzero++; };
 
         for (lettersPosition; lettersPosition < 4; lettersPosition++) {
             for (currentPosition; currentPosition < lastnonzero; currentPosition++) {
-                if (list[currentPosition].getSuit() == letters[lettersPosition]){
+                if (list[currentPosition].getSuit() == lettersOld[lettersPosition]){
                     buffer = list[lastPosition];
                     list[lastPosition] = list[currentPosition];
                     list[currentPosition] = buffer;
@@ -105,11 +104,11 @@ public:
             counter = 0;
         };          
     };
-    Deck selectSuit(char selectSuit) {
+    DeckOld selectSuit(char selectSuit) {
         if (selectSuit == 'h' || selectSuit == 'd' || selectSuit == 'c' || selectSuit == 's') {
-            Deck filtredDeck(0);
+            DeckOld filtredDeck(0);
             int lastPosition = 0;
-            while (list[lastPosition].getRank() != NULL && lastPosition < quantity) { lastPosition++; };
+            while (list[lastPosition].getRank() != NULL && lastPosition < quantityOld) { lastPosition++; };
             for (int position = 0; position < lastPosition; position++) {
                 if (list[position].getSuit() == selectSuit)
                     filtredDeck.addCard(list[position]);
@@ -120,25 +119,25 @@ public:
             std::cout << "Wrong suit";
     };
 
-    friend std::ostream& operator <<(std::ostream& c, const Deck& d);
-    friend std::istream& operator >>(std::istream& c, Deck& d);
-    Deck& operator= (const Deck& deck);
+    friend std::ostream& operator <<(std::ostream& c, const DeckOld& d);
+    friend std::istream& operator >>(std::istream& c, DeckOld& d);
+    DeckOld& operator= (const DeckOld& deck);
 
     void getRandom() {  // функция для создания случайных карт
-        for (int counter = 0; counter < quantity; counter++)
+        for (int counter = 0; counter < quantityOld; counter++)
         {
             int randomNumber = rand() % (counter+1);
-            randomRank[counter] = randomRank[randomNumber];
-            randomRank[randomNumber] = counter%13;
-            randomSuit[counter] = randomSuit[randomNumber];
-            randomSuit[randomNumber] = letters[counter%4];
+            randomRankOld[counter] = randomRankOld[randomNumber];
+            randomRankOld[randomNumber] = counter%13;
+            randomSuitOld[counter] = randomSuitOld[randomNumber];
+            randomSuitOld[randomNumber] = lettersOld[counter%4];
         };
     };
     void addCard(Card card) {
         int lastPosition = 0;
         Card additionCard(card.getRank(), card.getSuit());
-        while (list[lastPosition].getRank() != NULL && lastPosition < quantity) { lastPosition++; };
-        if (lastPosition < quantity)
+        while (list[lastPosition].getRank() != NULL && lastPosition < quantityOld) { lastPosition++; };
+        if (lastPosition < quantityOld)
             list[lastPosition] = additionCard;
         else
             std::cout << "The deck contains the maximum number of cards\n";
@@ -175,17 +174,17 @@ public:
         left = l_hold;
         right = r_hold;
         if (left < pivot)
-            Deck::sortRank(left, pivot - 1);
+            DeckOld::sortRank(left, pivot - 1);
         if (right > pivot)
-            Deck::sortRank(pivot + 1, right);
+            DeckOld::sortRank(pivot + 1, right);
     };
 };
 
 
-std::ostream& operator <<(std::ostream& c, const Deck& d) // перегрузка оператора << для вывода графики
+std::ostream& operator <<(std::ostream& c, const DeckOld& d) // перегрузка оператора << для вывода графики
 {
     int outputCount = 0;
-    while (d.getRank(outputCount) != 0 && outputCount < quantity) {
+    while (d.getRank(outputCount) != 0 && outputCount < quantityOld) {
         c << "_____\n";
         c << "|" << d.getRank(outputCount) << "  |\n";
         if (d.getRank(outputCount) > 9)
@@ -197,7 +196,7 @@ std::ostream& operator <<(std::ostream& c, const Deck& d) // перегрузк�
     };
     return c;
 };
-std::istream& operator >>(std::istream& c, Deck& d)
+std::istream& operator >>(std::istream& c, DeckOld& d)
 {
     int number = 0;
     char leter = ' ';
@@ -216,12 +215,12 @@ std::istream& operator >>(std::istream& c, Deck& d)
 
 
 
-void printCards(Deck cards, int numbers) {                       //функция вывода карт в колоде
+void printCards(DeckOld cards, int numbers) {                       //функция вывода карт в колоде
     for (int j = 0; j < numbers; j++) {
         std::cout << j + 1 << ") " << cards.getRank(j) << " " << cards.getSuit(j) << "\n";
     };
 };
-void printCardsLine(Deck cards, int numbers) {                   //функция вывода карт в колоде в линию
+void printCardsLine(DeckOld cards, int numbers) {                   //функция вывода карт в колоде в линию
     for (int j = 0; j < numbers; j++) {
         std::cout  << cards.getSuit(j) << " ";
     };
@@ -231,9 +230,9 @@ void printCardsLine(Deck cards, int numbers) {                   //функци�
     };
     std::cout << '\n';
 };
-void printNonZero(Deck cards) {                                  //функция вывода ненулевых карт в колоде
+void printNonZero(DeckOld cards) {                                  //функция вывода ненулевых карт в колоде
     int lastPosition = 0;
-    while (cards.getRank(lastPosition) > NULL && lastPosition < quantity ) { 
+    while (cards.getRank(lastPosition) > NULL && lastPosition < quantityOld ) { 
         std::cout << lastPosition + 1 << ") " << cards.getRank(lastPosition) << " " << cards.getSuit(lastPosition) << "\n";
         lastPosition++; 
     }
@@ -241,10 +240,10 @@ void printNonZero(Deck cards) {                                  //функци�
 
 int main()
 {
-   srand(time(0));      //зерно для псевдослучайного генератора
-   Deck koloda(10);
+   srand(time(0));      //зерно для псевдослучайного генератора 
+   DeckOld koloda(10);
    printCards(koloda, 10);
-   Deck dKoloda = koloda.selectSuit('d');
+   DeckOld dKoloda = koloda.selectSuit('d');
    std::cout << std::endl;
    printNonZero(dKoloda);
    std::cout << dKoloda << std::endl;
