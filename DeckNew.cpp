@@ -1,16 +1,15 @@
 #include "DeckNew.h"
 
-int randomRank[QUANTITY];               // Массив для случайной генерации ранга карты
-char randomSuit[QUANTITY];              // Массив для генерации случайной масти карты
-char letters[4]{ 'h','d','c','s' };     // Возможные масти карт, от слов Heart, Diamond, Club, Spade
+int randomRank[QUANTITY];               // РњР°СЃСЃРёРІ РґР»СЏ СЃР»СѓС‡Р°Р№РЅРѕР№ РіРµРЅРµСЂР°С†РёРё СЂР°РЅРіР° РєР°СЂС‚С‹
+char randomSuit[QUANTITY];              // РњР°СЃСЃРёРІ РґР»СЏ РіРµРЅРµСЂР°С†РёРё СЃР»СѓС‡Р°Р№РЅРѕР№ РјР°СЃС‚Рё РєР°СЂС‚С‹
+char letters[4]{ 'h','d','c','s' };     // Р’РѕР·РјРѕР¶РЅС‹Рµ РјР°СЃС‚Рё РєР°СЂС‚, РѕС‚ СЃР»РѕРІ Heart, Diamond, Club, Spade
 
-
-Card::Card()              // Конструктор по умолчанию создает карту минимального ранга первой заданной масти
+Card::Card()              // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ СЃРѕР·РґР°РµС‚ РєР°СЂС‚Сѓ РјРёРЅРёРјР°Р»СЊРЅРѕРіРѕ СЂР°РЅРіР° РїРµСЂРІРѕР№ Р·Р°РґР°РЅРЅРѕР№ РјР°СЃС‚Рё
 {
     rank = MINRANG;
     suit = letters[0];
 };
-Card::Card(int rank, char suit)         // Коструктор, создающий карту с рангом и мастью
+Card::Card(int rank, char suit)         // РљРѕСЃС‚СЂСѓРєС‚РѕСЂ, СЃРѕР·РґР°СЋС‰РёР№ РєР°СЂС‚Сѓ СЃ СЂР°РЅРіРѕРј Рё РјР°СЃС‚СЊСЋ
 {
     bool StandFlag = false;
     try {
@@ -20,7 +19,7 @@ Card::Card(int rank, char suit)         // Коструктор, создающий карту с рангом 
                 break;
             }
         }
-        if (rank < MINRANG || rank > MAXRANG || StandFlag == false) throw 1;          // Ограничение на ранг [MINRANG, MAXRANG] и на масть 
+        if (rank < MINRANG || rank > MAXRANG || StandFlag == false) throw 1;          // РћРіСЂР°РЅРёС‡РµРЅРёРµ РЅР° СЂР°РЅРі [MINRANG, MAXRANG] Рё РЅР° РјР°СЃС‚СЊ 
         Card::rank = rank;
         Card::suit = suit;
     }
@@ -34,7 +33,7 @@ int Card::getRank() const { return rank; };
 char Card::getSuit() const { return suit; };
 Card& Card::setRank(int rank) {
     try {
-        if (rank < MINRANG || rank > MAXRANG) throw 1;          // Ограничение на ранг [MINRANG, MAXRANG]
+        if (rank < MINRANG || rank > MAXRANG) throw 1;          // РћРіСЂР°РЅРёС‡РµРЅРёРµ РЅР° СЂР°РЅРі [MINRANG, MAXRANG]
         Card::rank = rank;
         Card::suit = suit;
     }
@@ -52,7 +51,7 @@ Card& Card::setSuit(char suit) {
                 break;
             }
         }
-        if (StandFlag == false) throw 100;          // Ограничение на масть 
+        if (StandFlag == false) throw 100;          // РћРіСЂР°РЅРёС‡РµРЅРёРµ РЅР° РјР°СЃС‚СЊ
         Card::rank = rank;
         Card::suit = suit;
     }
@@ -62,14 +61,14 @@ Card& Card::setSuit(char suit) {
     return *this;
 };
 
-Deck::Deck() {                            // конструктор по умолчанию создает упорядоченный набор карт: переодичность ранга - MAXRANG, переодичность масти - len(letters)
+Deck::Deck() {                            // РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ СЃРѕР·РґР°РµС‚ СѓРїРѕСЂСЏРґРѕС‡РµРЅРЅС‹Р№ РЅР°Р±РѕСЂ РєР°СЂС‚: РїРµСЂРµРѕРґРёС‡РЅРѕСЃС‚СЊ СЂР°РЅРіР° - MAXRANG, РїРµСЂРµРѕРґРёС‡РЅРѕСЃС‚СЊ РјР°СЃС‚Рё - len(letters)
     lenght = QUANTITY;
     for (int filler = 0; filler < QUANTITY; ++filler) {
         Card basekard((filler % MAXRANG) + 1, letters[filler % (sizeof(letters) / sizeof(letters[0]))]);
         list[filler] = basekard;
     };
 };
-Deck::Deck(int number)                    // конструктор, создающий колоду из number карт, определяемых случайно
+Deck::Deck(int number)                    // РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ, СЃРѕР·РґР°СЋС‰РёР№ РєРѕР»РѕРґСѓ РёР· number РєР°СЂС‚, РѕРїСЂРµРґРµР»СЏРµРјС‹С… СЃР»СѓС‡Р°Р№РЅРѕ
 {
     try {
         if (number > QUANTITY || number < 0) throw 101;
@@ -92,14 +91,14 @@ Deck::Deck(int number)                    // конструктор, создающий колоду из nu
 
     }
 };
-Deck::Deck(Card card) {                   // конструктор, создающий колоду из одной указанной карты
+Deck::Deck(Card card) {                   // РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ, СЃРѕР·РґР°СЋС‰РёР№ РєРѕР»РѕРґСѓ РёР· РѕРґРЅРѕР№ СѓРєР°Р·Р°РЅРЅРѕР№ РєР°СЂС‚С‹
     lenght = 1;
     list[0] = card;
 };
-Deck& Deck::operator++()                  // перегрузка оператора ++ для добавления случайной карты в колоду
+Deck& Deck::operator++()                  // РїРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° ++ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ СЃР»СѓС‡Р°Р№РЅРѕР№ РєР°СЂС‚С‹ РІ РєРѕР»РѕРґСѓ
 {
     try {
-        if (lenght >= QUANTITY) throw 102;  //ограничение на размер колоды
+        if (lenght >= QUANTITY) throw 102;  // РѕРіСЂР°РЅРёС‡РµРЅРёРµ РЅР° СЂР°Р·РјРµСЂ РєРѕР»РѕРґС‹
         Card additionCard((rand() % MAXRANG) + 1, letters[rand() % (sizeof(letters) / sizeof(letters[0]))]);
         list[lenght] = additionCard;
         lenght++;
@@ -114,7 +113,7 @@ char Deck::getSuit(int position) const { return list[position].getSuit(); };
 int Deck::getRank(int position) const { return list[position].getRank(); };  
 int Deck::getLenght() const { return lenght; };
 
-void Deck::sort() {                                                    // сортировка по масти и рангу
+void Deck::sort() {                                                    // СЃРѕСЂС‚РёСЂРѕРІРєР° РїРѕ РјР°СЃС‚Рё Рё СЂР°РЅРіСѓ
     Card buffer;
     int currentPosition = 0;
     int lastPosition = 0;
@@ -130,7 +129,7 @@ void Deck::sort() {                                                    // сортир
                 counter++;
             };
         };
-        sortRank(lastPosition - counter, lastPosition - 1);     //после сортироки по букве применяется сортировка по рангу
+        sortRank(lastPosition - counter, lastPosition - 1);     // РїРѕСЃР»Рµ СЃРѕСЂС‚РёСЂРѕРєРё РїРѕ Р±СѓРєРІРµ РїСЂРёРјРµРЅСЏРµС‚СЃСЏ СЃРѕСЂС‚РёСЂРѕРІРєР° РїРѕ СЂР°РЅРіСѓ
         currentPosition = lastPosition;
         counter = 0;
     };
@@ -156,7 +155,7 @@ Deck Deck::selectSuit(char selectSuit) {
 };
 
 
-void Deck::getRandom() {  // функция для создания случайных карт
+void Deck::getRandom() {  // С„СѓРЅРєС†РёСЏ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ СЃР»СѓС‡Р°Р№РЅС‹С… РєР°СЂС‚
     for (int counter = 0; counter < QUANTITY; ++counter)
     {
         int randomNumber = rand() % (counter + 1);
@@ -175,7 +174,7 @@ void Deck::addCard(Card card) {
     }
     catch(int){}
 };
-void Deck::sortRank(int left, int right) {                             // сортировка по рангу быстрой сортировкой  
+void Deck::sortRank(int left, int right) {                             // СЃРѕСЂС‚РёСЂРѕРІРєР° РїРѕ СЂР°РЅРіСѓ Р±С‹СЃС‚СЂРѕР№ СЃРѕСЂС‚РёСЂРѕРІРєРѕР№  
     int pivot;
     char pivot_suit = ' ';
     int l_hold = left;
@@ -212,7 +211,7 @@ void Deck::sortRank(int left, int right) {                             // сортир
         Deck::sortRank(pivot + 1, right);
 };
 
-std::ostream& operator <<(std::ostream& c, const Deck& d) // перегрузка оператора << для вывода графики
+std::ostream& operator <<(std::ostream& c, const Deck& d) // РїРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° << РґР»СЏ РІС‹РІРѕРґР° РіСЂР°С„РёРєРё
 {
     int outputCount = 0;
     while (d.getRank(outputCount) != 0 && outputCount < d.getLenght()) {
