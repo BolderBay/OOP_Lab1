@@ -1,7 +1,7 @@
 #include <iostream>
 #include "DeckConst.h"
 using namespace DeckConst;              // Использование своего пространства имен
-                                       
+
 struct Card {           // Структура для задачи карты
 private:
     int rank;           // Значение ранга
@@ -11,15 +11,15 @@ public:
     Card(int rank, char suit);      // Коструктор, создающий карту с рангом и мастью
     int  getRank() const;           // Геттер ранга
     char getSuit() const;           // Геттер масти
-    Card & setRank(int rank);       // Сеттер ранга
-    Card & setSuit(char suit);      // Сеттер масти
+    Card& setRank(int rank);       // Сеттер ранга
+    Card& setSuit(char suit);      // Сеттер масти
     bool operator> (Card sortCard);
 };
 
 class Deck {                        // класс колоды
 private:
-    Card list[QUANTITY];            // Массив колоды 
-    int  lenght;                    // Длинна колоды
+    Card *list = new Card[0]();            // Массив колоды 
+    int  lenght;                        // Длинна колоды
     void sortRank(int left, int right);
 public:
     Deck();
@@ -42,3 +42,6 @@ public:
     void delCard();                                                     // Дополнительный метод удаления карты
 };
 
+class DynamicDeck
+{
+};

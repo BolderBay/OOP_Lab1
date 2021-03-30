@@ -1,4 +1,4 @@
-#include "DeckNew.h"
+#include "DynamicDeck.h"
 #include <strstream>
 #include <stdio.h>
 
@@ -48,19 +48,18 @@ Card& Card::setSuit(char suit) {
 	return *this;
 };
 
-bool Card::operator> (Card sortCard) 
+bool Card::operator> (Card sortCard)
 {
-	int suit1pos=0;
-	int suit2pos=0;
-	for (int i = 0; i < sizeof(letters); i++) 
+	int suit1pos = 0;
+	int suit2pos = 0;
+	for (int i = 0; i < sizeof(letters); i++)
 	{
 		if (letters[i] == suit) suit1pos = i;
 		if (letters[i] == sortCard.getSuit()) suit2pos = i;
 	}
 	if (suit1pos > suit2pos) return false;
 	if (suit1pos < suit2pos) return true;
-	if (suit1pos == suit2pos && rank > sortCard.getRank()) return true;
-	if (suit1pos == suit2pos && rank < sortCard.getRank()) return false;
+	if (rank > sortCard.getRank()) return true; else return false;
 }
 
 Deck::Deck() {                            // конструктор по умолчанию создает упорядоченный набор карт: переодичность ранга - MAXRANG, переодичность масти - len(letters)
@@ -127,7 +126,7 @@ void Deck::NewSort() {
 	Card buffer;
 	for (int i = 0; i < lenght; i++) {
 		for (int j = 0; j < lenght - 1; j++) {
-			if (list[j+1] > list[j]) {
+			if (list[j + 1] > list[j]) {
 				buffer = list[j + 1];
 				list[j + 1] = list[j];
 				list[j] = buffer;
@@ -184,7 +183,7 @@ void Deck::addCard(Card card) {
 		if (list[seacher].getRank() == card.getRank() && list[seacher].getSuit() == card.getSuit()) {
 			FindingFlag = true;
 			break;
-		}	
+		}
 	}
 	if (FindingFlag == true) throw std::exception("This card is already in the deck\n");
 
@@ -249,7 +248,7 @@ std::istream& operator >>(std::istream& c, Deck& d)
 	int rangInput;
 	char suitInput;
 	int counter;
-	
+
 	c >> counter;
 	for (int inputer = 0; inputer < counter; ++inputer) {
 		c >> rangInput >> suitInput;
@@ -260,13 +259,13 @@ std::istream& operator >>(std::istream& c, Deck& d)
 	}
 	return c;
 };
-int Deck::operator[] (int index) const { 
+int Deck::operator[] (int index) const {
 	if (index > lenght) throw std::exception("Incorrect position\n");
-	return list[index].getRank(); 
+	return list[index].getRank();
 }
-char Deck::operator() (int index) const { 
-	if (index > lenght) throw std::exception("Incorrect position\n"); 
-	return list[index].getSuit(); 
+char Deck::operator() (int index) const {
+	if (index > lenght) throw std::exception("Incorrect position\n");
+	return list[index].getSuit();
 
 }
 
@@ -287,3 +286,4 @@ void Deck::delCard() {
 	shiftCard();
 	lenght--;
 }
+
