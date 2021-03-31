@@ -2,12 +2,12 @@
 #include <strstream>
 #include <stdio.h>
 
-Card::Card()              // Конструктор по умолчанию создает карту минимального ранга первой заданной масти
+Card::Card()              // ГЉГ®Г­Г±ГІГ°ГіГЄГІГ®Г° ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ Г±Г®Г§Г¤Г ГҐГІ ГЄГ Г°ГІГі Г¬ГЁГ­ГЁГ¬Г Г«ГјГ­Г®ГЈГ® Г°Г Г­ГЈГ  ГЇГҐГ°ГўГ®Г© Г§Г Г¤Г Г­Г­Г®Г© Г¬Г Г±ГІГЁ
 {
 	rank = MINRANG;
 	suit = letters[0];
 };
-Card::Card(int rank, char suit)         // Коструктор, создающий карту с рангом и мастью
+Card::Card(int rank, char suit)         // ГЉГ®Г±ГІГ°ГіГЄГІГ®Г°, Г±Г®Г§Г¤Г ГѕГ№ГЁГ© ГЄГ Г°ГІГі Г± Г°Г Г­ГЈГ®Г¬ ГЁ Г¬Г Г±ГІГјГѕ
 {
 	bool StandFlag = false;
 	for (int searcher = 0; searcher < sizeof(letters) / sizeof(letters[0]); ++searcher) {
@@ -17,7 +17,7 @@ Card::Card(int rank, char suit)         // Коструктор, создающий карту с рангом 
 		}
 	}
 	if (rank < MINRANG || rank > MAXRANG && StandFlag == false) throw std::exception("Invalid rang and suit\n");
-	if (rank < MINRANG || rank > MAXRANG) throw std::exception("Invalid rang\n");         // Ограничение на ранг [MINRANG, MAXRANG] и на масть 
+	if (rank < MINRANG || rank > MAXRANG) throw std::exception("Invalid rang\n");         // ГЋГЈГ°Г Г­ГЁГ·ГҐГ­ГЁГҐ Г­Г  Г°Г Г­ГЈ [MINRANG, MAXRANG] ГЁ Г­Г  Г¬Г Г±ГІГј  
 	if (StandFlag == false) throw std::exception("Invalid suit\n");
 	Card::rank = rank;
 	Card::suit = suit;
@@ -26,7 +26,7 @@ Card::Card(int rank, char suit)         // Коструктор, создающий карту с рангом 
 int Card::getRank() const { return rank; };
 char Card::getSuit() const { return suit; };
 Card& Card::setRank(int rank) {
-	if (rank < MINRANG || rank > MAXRANG) throw std::exception("Invalid rang\n");          // Ограничение на ранг [MINRANG, MAXRANG]
+	if (rank < MINRANG || rank > MAXRANG) throw std::exception("Invalid rang\n");          // ГЋГЈГ°Г Г­ГЁГ·ГҐГ­ГЁГҐ Г­Г  Г°Г Г­ГЈ [MINRANG, MAXRANG]
 	else {
 		Card::rank = rank;
 		Card::suit = suit;
@@ -42,7 +42,7 @@ Card& Card::setSuit(char suit) {
 			break;
 		}
 	}
-	if (StandFlag == false) throw std::exception("Invalid suit\n");          // Ограничение на масть 
+	if (StandFlag == false) throw std::exception("Invalid suit\n");          // ГЋГЈГ°Г Г­ГЁГ·ГҐГ­ГЁГҐ Г­Г  Г¬Г Г±ГІГј 
 	Card::rank = rank;
 	Card::suit = suit;
 	return *this;
@@ -63,14 +63,14 @@ bool Card::operator> (Card sortCard)
 	if (suit1pos == suit2pos && rank < sortCard.getRank()) return false;
 }
 
-Deck::Deck() {                            // конструктор по умолчанию создает упорядоченный набор карт: переодичность ранга - MAXRANG, переодичность масти - len(letters)
+Deck::Deck() {                            // ГЄГ®Г­Г±ГІГ°ГіГЄГІГ®Г° ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ Г±Г®Г§Г¤Г ГҐГІ ГіГЇГ®Г°ГїГ¤Г®Г·ГҐГ­Г­Г»Г© Г­Г ГЎГ®Г° ГЄГ Г°ГІ: ГЇГҐГ°ГҐГ®Г¤ГЁГ·Г­Г®Г±ГІГј Г°Г Г­ГЈГ  - MAXRANG, ГЇГҐГ°ГҐГ®Г¤ГЁГ·Г­Г®Г±ГІГј Г¬Г Г±ГІГЁ - len(letters)
 	lenght = QUANTITY;
 	for (int filler = 0; filler < QUANTITY; ++filler) {
 		Card basekard((filler % MAXRANG) + 1, letters[filler % (sizeof(letters) / sizeof(letters[0]))]);
 		list[filler] = basekard;
 	};
 };
-Deck::Deck(int number)                    // конструктор, создающий колоду из number карт, определяемых случайно
+Deck::Deck(int number)                    // ГЄГ®Г­Г±ГІГ°ГіГЄГІГ®Г°, Г±Г®Г§Г¤Г ГѕГ№ГЁГ© ГЄГ®Г«Г®Г¤Гі ГЁГ§ number ГЄГ Г°ГІ, Г®ГЇГ°ГҐГ¤ГҐГ«ГїГҐГ¬Г»Гµ Г±Г«ГіГ·Г Г©Г­Г®
 {
 	srand(time(0));
 	if (number > QUANTITY || number < 0) throw std::exception("Invalid number\n");
@@ -92,14 +92,14 @@ Deck::Deck(int number)                    // конструктор, создающий колоду из nu
 
 };
 
-Deck::Deck(Card card) {                   // конструктор, создающий колоду из одной указанной карты
+Deck::Deck(Card card) {                   // ГЄГ®Г­Г±ГІГ°ГіГЄГІГ®Г°, Г±Г®Г§Г¤Г ГѕГ№ГЁГ© ГЄГ®Г«Г®Г¤Гі ГЁГ§ Г®Г¤Г­Г®Г© ГіГЄГ Г§Г Г­Г­Г®Г© ГЄГ Г°ГІГ»
 	lenght = 1;
 	list[0] = card;
 };
-Deck& Deck::operator++()                  // перегрузка оператора ++ для добавления случайной карты в колоду
+Deck& Deck::operator++()                  // ГЇГҐГ°ГҐГЈГ°ГіГ§ГЄГ  Г®ГЇГҐГ°Г ГІГ®Г°Г  ++ Г¤Г«Гї Г¤Г®ГЎГ ГўГ«ГҐГ­ГЁГї Г±Г«ГіГ·Г Г©Г­Г®Г© ГЄГ Г°ГІГ» Гў ГЄГ®Г«Г®Г¤Гі
 {
 	srand(time(0));
-	if (lenght >= QUANTITY) throw std::exception("The deck is full\n");  // ограничение на размер колоды
+	if (lenght >= QUANTITY) throw std::exception("The deck is full\n");  // Г®ГЈГ°Г Г­ГЁГ·ГҐГ­ГЁГҐ Г­Г  Г°Г Г§Г¬ГҐГ° ГЄГ®Г«Г®Г¤Г»
 	Card additionCard;
 	bool FindingFlag = true;
 	while (FindingFlag == true) {
@@ -136,7 +136,7 @@ void Deck::NewSort() {
 	}
 }
 
-void Deck::sort() {                                                    // сортировка по масти и рангу
+void Deck::sort() {                                                    // Г±Г®Г°ГІГЁГ°Г®ГўГЄГ  ГЇГ® Г¬Г Г±ГІГЁ ГЁ Г°Г Г­ГЈГі
 	Card buffer;
 	int currentPosition = 0;
 	int lastPosition = 0;
@@ -152,7 +152,7 @@ void Deck::sort() {                                                    // сортир
 				counter++;
 			};
 		};
-		sortRank(lastPosition - counter, lastPosition - 1);     // после сортироки по букве применяется сортировка по рангу
+		sortRank(lastPosition - counter, lastPosition - 1);     // ГЇГ®Г±Г«ГҐ Г±Г®Г°ГІГЁГ°Г®ГЄГЁ ГЇГ® ГЎГіГЄГўГҐ ГЇГ°ГЁГ¬ГҐГ­ГїГҐГІГ±Гї Г±Г®Г°ГІГЁГ°Г®ГўГЄГ  ГЇГ® Г°Г Г­ГЈГі
 		currentPosition = lastPosition;
 		counter = 0;
 	};
@@ -192,7 +192,7 @@ void Deck::addCard(Card card) {
 	lenght++;
 
 };
-void Deck::sortRank(int left, int right) {                             // сортировка по рангу быстрой сортировкой  
+void Deck::sortRank(int left, int right) {                             // Г±Г®Г°ГІГЁГ°Г®ГўГЄГ  ГЇГ® Г°Г Г­ГЈГі ГЎГ»Г±ГІГ°Г®Г© Г±Г®Г°ГІГЁГ°Г®ГўГЄГ®Г©  
 	int pivot;
 	char pivot_suit = ' ';
 	int l_hold = left;
@@ -229,7 +229,7 @@ void Deck::sortRank(int left, int right) {                             // сортир
 		Deck::sortRank(pivot + 1, right);
 };
 
-std::ostream& operator <<(std::ostream& c, const Deck& d) // перегрузка оператора << для вывода графики
+std::ostream& operator <<(std::ostream& c, const Deck& d) // ГЇГҐГ°ГҐГЈГ°ГіГ§ГЄГ  Г®ГЇГҐГ°Г ГІГ®Г°Г  << Г¤Г«Гї ГўГ»ГўГ®Г¤Г  ГЈГ°Г ГґГЁГЄГЁ
 {
 	int outputCount = 0;
 	while (d.getRank(outputCount) != 0 && outputCount < d.getLenght()) {
