@@ -21,18 +21,12 @@
     <ClCompile Include="DeckNew.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="DynamicDeck.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DeckNew.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="DeckConst.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="DynamicDeck.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

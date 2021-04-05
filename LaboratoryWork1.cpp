@@ -24,7 +24,7 @@ int main()
 {
 	srand(time(0));
 
-	int game = 1;
+	int game = 2;
 
 	int countCard = 10;
 	Deck myDeck(0);
@@ -76,13 +76,15 @@ int main()
 		while (myDeck.getLenght() != 0 && opponentDeck.getLenght() != 0) {
 			if (myDeck.getCard(0) > opponentDeck.getCard(0)) {
 				try{
-					myDeck.addCard(opponentDeck.getCard(0));
+					Card opCard = opponentDeck.getCard(0);
+					myDeck.addCard(opCard);
 				}
 				catch (std::exception& err) { std::cout << err.what(); }
 				opponentDeck.delCard();
 			}
+			Card opCard = opponentDeck.getCard(0);
 			if (opponentDeck.getCard(0) > myDeck.getCard(0)) {
-				opponentDeck.addCard(opponentDeck.getCard(0));
+				opponentDeck.addCard(opCard);
 				myDeck.delCard();
 			}
 			myDeck.shiftCard();
@@ -95,5 +97,10 @@ int main()
 		break;
 	}
 
+	Deck testdeck(10);
+	Deck suda(0);
+	printCardsLine(testdeck);
+	testdeck.selectSuit('h', suda);
+	printCardsLine(suda);
 }
 

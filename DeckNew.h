@@ -24,14 +24,14 @@ private:
 public:
     Deck();
     Deck(int number);                     // Конструктор, создающий колоду из number карт, определяемых случайно
-    Deck(Card card);                      // Конструктор, создающий колоду из одной указанной карты
+    Deck(Card &card);                      // Конструктор, создающий колоду из одной указанной карты
     char getSuit(int position) const;     // Гттер на масть карты по ее позиции
     int getRank(int position) const;      // Геттер на ранг карты по ее позиции
     int getLenght() const;                // Геттер на длину колоды
-    Deck selectSuit(char selectSuit);     // Возврат колоды по масти
+    Deck selectSuit(char selectSuit, Deck &newdeck);     // Возврат колоды по масти
     void sort();                          // Сортировка
     void NewSort();                       // Новая сортировка
-    void addCard(Card card);              // Доп функция для доавления карты в колоду  
+    void addCard(Card &card);              // Доп функция для доавления карты в колоду  
     friend std::ostream& operator <<(std::ostream& c, const Deck& d);   // Перегрузка оператора << для вывода
     friend std::istream& operator >>(std::istream& c, Deck& d);         // Перегрузка оператора >> для ввода
     Deck& operator++();                                                 // Перегрузка оператора ++ для добавления случайной карты в колоду

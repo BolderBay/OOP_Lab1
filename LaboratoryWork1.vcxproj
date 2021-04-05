@@ -140,13 +140,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DeckNew.cpp" />
-    <ClCompile Include="DynamicDeck.cpp" />
     <ClCompile Include="LaboratoryWork1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DeckConst.h" />
     <ClInclude Include="DeckNew.h" />
-    <ClInclude Include="DynamicDeck.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
